@@ -1,0 +1,85 @@
+﻿<phone:PhoneApplicationPage x:Class="PedroLamas.Quadratic.View.AboutPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:cimbalinoSystemControls="clr-namespace:System.Windows.Controls;assembly=Cimbalino.Phone.Toolkit"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            DataContext="{Binding About,
+                                                  Source={StaticResource Locator}}"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            Style="{StaticResource PhoneApplicationPageStyle}"
+                            SupportedOrientations="PortraitOrLandscape"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  TitlePanel contains the name of the application and page title  -->
+        <StackPanel x:Name="TitlePanel"
+                    Grid.Row="0"
+                    Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle"
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Text="{StaticResource ApplicationTitle}" />
+            <TextBlock x:Name="PageTitle"
+                       Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Text="about" />
+        </StackPanel>
+
+        <!--  ContentPanel - place additional content here  -->
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollViewer>
+                <StackPanel>
+                    <HyperlinkButton Command="{Binding MarketplaceSearchCommand, Mode=OneTime}" Style="{StaticResource EmptyHyperlinkButtonStyle}">
+                        <cimbalinoSystemControls:HeaderedContentControl Content="Pedro Lamas"
+                                                                        Header="development"
+                                                                        Style="{StaticResource LinkedHeaderedContentControlStyle}" />
+                    </HyperlinkButton>
+                    <HyperlinkButton Command="{Binding OpenHomepageCommand, Mode=OneTime}" Style="{StaticResource EmptyHyperlinkButtonStyle}">
+                        <cimbalinoSystemControls:HeaderedContentControl Content="http://www.pedrolamas.com"
+                                                                        Header="homepage"
+                                                                        Style="{StaticResource LinkedHeaderedContentControlStyle}" />
+                    </HyperlinkButton>
+                    <HyperlinkButton Command="{Binding OpenTwitterCommand, Mode=OneTime}" Style="{StaticResource EmptyHyperlinkButtonStyle}">
+                        <cimbalinoSystemControls:HeaderedContentControl Content="@pedrolamas"
+                                                                        Header="twitter"
+                                                                        Style="{StaticResource LinkedHeaderedContentControlStyle}" />
+                    </HyperlinkButton>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.ColumnSpan="2"
+                        Margin="-12,0,-12,0"
+                        Background="{StaticResource PhoneChromeBrush}" />
+                <Button Command="{Binding RateApplicationCommand, Mode=OneTime}" Content="rate" />
+                <Button Grid.Column="1"
+                        Command="{Binding ShareApplicationCommand,
+                                          Mode=OneTime}"
+                        Content="share" />
+            </Grid>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

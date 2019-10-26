@@ -1,0 +1,99 @@
+﻿<phone:PhoneApplicationPage x:Class="PedroLamas.Quadratic.View.MainPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:cimbalinoBehaviors="clr-namespace:Cimbalino.Phone.Toolkit.Behaviors;assembly=Cimbalino.Phone.Toolkit"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            DataContext="{Binding Main,
+                                                  Source={StaticResource Locator}}"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            Style="{StaticResource PhoneApplicationPageStyle}"
+                            SupportedOrientations="PortraitOrLandscape"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+
+    <i:Interaction.Behaviors>
+        <cimbalinoBehaviors:ApplicationBarBehavior>
+            <cimbalinoBehaviors:ApplicationBarIconButton Command="{Binding SolveEquationCommand,
+                                                                           Mode=OneTime}"
+                                                         IconUri="/Assets/AppBar/solve.png"
+                                                         Text="solve" />
+            <cimbalinoBehaviors:ApplicationBarBehavior.MenuItems>
+                <cimbalinoBehaviors:ApplicationBarMenuItem Command="{Binding ShowAboutCommand, Mode=OneTime}" Text="about" />
+            </cimbalinoBehaviors:ApplicationBarBehavior.MenuItems>
+        </cimbalinoBehaviors:ApplicationBarBehavior>
+    </i:Interaction.Behaviors>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel"
+                    Grid.Row="0"
+                    Margin="12,17,0,28">
+            <TextBlock Margin="12,0"
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Text="{StaticResource ApplicationTitle}" />
+        </StackPanel>
+
+        <StackPanel x:Name="ContentPanel"
+                    Grid.Row="1"
+                    Margin="12,0,12,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextSubtleStyle}"
+                           Text="a = " />
+                <TextBox Grid.Column="1"
+                         InputScope="TelephoneNumber"
+                         Text="{Binding ParameterA,
+                                        Mode=TwoWay}" />
+                <TextBlock Grid.Row="1"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextSubtleStyle}"
+                           Text="b = " />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         InputScope="TelephoneNumber"
+                         Text="{Binding ParameterB,
+                                        Mode=TwoWay}" />
+                <TextBlock Grid.Row="2"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextSubtleStyle}"
+                           Text="c = " />
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         InputScope="TelephoneNumber"
+                         Text="{Binding ParameterC,
+                                        Mode=TwoWay}" />
+                <CheckBox Grid.Row="3"
+                          Grid.Column="1"
+                          Content="Allow complex numbers solution"
+                          IsChecked="{Binding AcceptComplexNumberSolutions,
+                                              Mode=TwoWay}" />
+            </Grid>
+
+            <TextBlock HorizontalAlignment="Center"
+                       Style="{StaticResource PhoneTextLargeStyle}"
+                       Text="{Binding Equation}" />
+        </StackPanel>
+    </Grid>
+</phone:PhoneApplicationPage>

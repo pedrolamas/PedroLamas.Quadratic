@@ -1,0 +1,124 @@
+﻿<phone:PhoneApplicationPage x:Class="PedroLamas.Quadratic.View.SolutionPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:cimbalinoBehaviors="clr-namespace:Cimbalino.Phone.Toolkit.Behaviors;assembly=Cimbalino.Phone.Toolkit"
+                            xmlns:cimbalinoConverters="clr-namespace:Cimbalino.Phone.Toolkit.Converters;assembly=Cimbalino.Phone.Toolkit"
+                            xmlns:cimbalinoSystemControls="clr-namespace:System.Windows.Controls;assembly=Cimbalino.Phone.Toolkit"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            DataContext="{Binding Solution,
+                                                  Source={StaticResource Locator}}"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            Style="{StaticResource PhoneApplicationPageStyle}"
+                            SupportedOrientations="PortraitOrLandscape"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+
+    <phone:PhoneApplicationPage.Resources>
+        <cimbalinoConverters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+
+        <DataTemplate x:Key="ListPickerFullModeItemTemplate">
+            <TextBlock Margin="0,18"
+                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                       Text="{Binding}"
+                       Visibility="{Binding Converter={StaticResource StringToVisibilityConverter}}" />
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <i:Interaction.Behaviors>
+        <cimbalinoBehaviors:ApplicationBarBehavior>
+            <cimbalinoBehaviors:ApplicationBarIconButton Click="ShareApplicationBarItem_OnClick"
+                                                         IconUri="/Assets/AppBar/share.png"
+                                                         Text="share" />
+            <cimbalinoBehaviors:ApplicationBarBehavior.MenuItems>
+                <cimbalinoBehaviors:ApplicationBarMenuItem Command="{Binding ShowAboutCommand, Mode=OneTime}" Text="about" />
+            </cimbalinoBehaviors:ApplicationBarBehavior.MenuItems>
+        </cimbalinoBehaviors:ApplicationBarBehavior>
+    </i:Interaction.Behaviors>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="{StaticResource ApplicationTitle}" />
+        </StackPanel>
+
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ItemsControl ItemsSource="{Binding SolutionEntries}" Style="{StaticResource VirtualItemsControlStyle}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <cimbalinoSystemControls:HeaderedContentControl Content="{Binding Content}"
+                                                                        Header="{Binding Header}"
+                                                                        Style="{StaticResource SolutionItemHeaderedContentControlStyle}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <toolkit:ListPicker x:Name="ShareTypeListPicker"
+                                ExpansionMode="FullScreenOnly"
+                                FullModeItemTemplate="{StaticResource ListPickerFullModeItemTemplate}"
+                                Header="SHARE"
+                                SelectionChanged="ShareTypeListPicker_OnSelectionChanged"
+                                Visibility="Collapsed" />
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.ColumnSpan="4"
+                           Height="2"
+                           Margin="12,0"
+                           Fill="{StaticResource PhoneForegroundBrush}" />
+
+                <TextBlock Grid.Row="1"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextSubtleStyle}"
+                           Text="decimals" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextNormalStyle}"
+                           Text="{Binding Decimals}" />
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Width="74"
+                        Height="74"
+                        Command="{Binding IncrementDecimalsCommand,
+                                          Mode=OneTime}"
+                        Content="+" />
+                <Button Grid.Row="1"
+                        Grid.Column="3"
+                        Width="74"
+                        Height="74"
+                        Command="{Binding DecrementDecimalsCommand,
+                                          Mode=OneTime}"
+                        Content="-" />
+            </Grid>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
